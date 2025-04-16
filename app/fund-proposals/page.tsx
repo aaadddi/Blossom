@@ -1,13 +1,13 @@
 "use client"
 import dynamic from 'next/dynamic';
-import { useSolanaWallet } from "../Context/SolanaWalletContext";
-import Navbar from '../Components/Navbar';
-import FundProposals from '../Components/FundProposals';
-import { UserInfoProvider } from '../Context/UserInfoContext';
+import { useSolanaWallet } from "../../Context/SolanaWalletContext";
+import Navbar from '@/Components/Navbar';
+import FundProposals from '@/Components/FundProposals';
+import { UserInfoProvider } from '@/Context/UserInfoContext';
 
 // Dynamically import the ConnectWallet component with no SSR
 const ConnectWallet = dynamic(
-  () => import('../Components/ConnectWallet'),
+  () => import('@/Components/ConnectWallet'),
   { ssr: false }
 );
 

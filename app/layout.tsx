@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SolanaWalletProvider } from "./Context/SolanaWalletContext";
+import { SolanaWalletProvider } from "../Context/SolanaWalletContext";
+import { UserInfoProvider } from "../Context/UserInfoContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SolanaWalletProvider>
-          {children}
+          <UserInfoProvider>
+            {children}
+          </UserInfoProvider>
         </SolanaWalletProvider>
       </body>
     </html>

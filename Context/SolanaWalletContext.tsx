@@ -6,10 +6,11 @@ import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-interface SolanaWalletContextType {
-  walletAddress: string | null;
-  isConnected: boolean;
+export interface SolanaWalletContextType {
+  publicKey: string | null;
+  connectWallet: () => Promise<void>;
   disconnectWallet: () => Promise<void>;
+  isConnected: boolean;
 }
 
 const SolanaWalletContext = createContext<SolanaWalletContextType | undefined>(undefined);
@@ -50,8 +51,23 @@ const WalletStateManager = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const connectWallet = async () => {
+    try {
+      await wallet?.adapter?.connect();
+    } catch (error) {
+      console.error('Error connecting wallet:', error);
+    }
+  };
+
   return (
-    <SolanaWalletContext.Provider value={{ walletAddress, isConnected, disconnectWallet }}>
+    <SolanaWalletContext.Provider
+      value={{
+        publicKey: wallet?.adapter?.publicKey?.toString() || null,
+        connectWallet,
+        disconnectWallet,
+        isConnected: !!wallet?.adapter?.publicKey,
+      }}
+    >
       {children}
     </SolanaWalletContext.Provider>
   );

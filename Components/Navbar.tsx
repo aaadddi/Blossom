@@ -1,9 +1,10 @@
 "use client"
+import { useUserInfo } from "@/Context/UserInfoContext";
 import { useSolanaWallet } from "../Context/SolanaWalletContext";
-import { useUserInfo } from '../Context/UserInfoContext';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { UserCircle } from 'lucide-react';
 
 const ConnectWallet = dynamic(
   () => import('./ConnectWallet'),
@@ -11,9 +12,9 @@ const ConnectWallet = dynamic(
 );
 
 const Navbar = () => {
-  const { isConnected } = useSolanaWallet();
-  const { username } = useUserInfo();
+  const { isConnected, publicKey } = useSolanaWallet();
   const pathname = usePathname();
+  const { userInfo } = useUserInfo();
 
   return (
     <nav className="bg-white shadow-lg">
@@ -49,10 +50,16 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex items-center space-x-4">
-            {isConnected && username && (
-              <span className="text-gray-700 font-medium">
-                Welcome, {username}!
-              </span>
+            {userInfo && (
+              <Link
+                href={`/profile/${userInfo.username}`}
+                className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                <UserCircle className="h-8 w-8" />
+                <span className="hidden md:inline text-sm font-medium">
+                  {userInfo.username}
+                </span>
+              </Link>
             )}
             <ConnectWallet />
           </div>
