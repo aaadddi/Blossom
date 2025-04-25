@@ -1,24 +1,16 @@
 "use client"
 
-import { useEffect } from 'react';
-import { useSolanaWallet } from "@/Context/SolanaWalletContext";
-import { UserInfoProvider, useUserInfo } from '@/Context/UserInfoContext';
-
 import Navbar from '@/Components/Navbar';
+import { useState } from 'react';
+import { useSolanaWallet } from "@/Context/SolanaWalletContext";
+import { useUser } from '@/Context/UserContext';
+import { User } from '@/types';
+import { OnboardingModal } from '@/Components/onboarding-modal/OnboardingModal';
+import { completeOnboarding } from '@/supabase/Calls';
 
 function HomeContent() {
-  const { publicKey, isConnected } = useSolanaWallet();
-  const { userInfo, getUserData } = useUserInfo();
+  
 
-  useEffect(()=>{
-    if(!isConnected) return;
-    const fetchUserData = async () => {
-      await getUserData();
-    }
-    if(!userInfo){
-      fetchUserData();
-    }
-  },[isConnected, publicKey, userInfo])
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -31,8 +23,6 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <UserInfoProvider>
       <HomeContent />
-    </UserInfoProvider>
   );
 }

@@ -4,6 +4,7 @@ export interface UserInfoType {
     title: string;
     wallet_addr: string;
     bio?: string;
+    avatar_url?: string;
     social_handles?: {
       twitter?: string;
       github?: string;
@@ -12,13 +13,6 @@ export interface UserInfoType {
     previous_fundings: number;
     created_proposals: number;
     new_user: boolean;
-  }
-
-export interface UserInfoContextType {
-    userInfo: UserInfoType | null;
-    getUserData: () => Promise<void>;
-    updateUserInfo: (newUserInfo: Partial<UserInfoType>) => Promise<void>;
-    isLoading: boolean;
   }
 
   export interface ProposalType {

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SolanaWalletProvider } from "../Context/SolanaWalletContext";
-import { UserInfoProvider } from "../Context/UserInfoContext";
+import { SolanaWalletProvider } from "@/Context/SolanaWalletContext";
+import { UserProvider } from "@/Context/UserContext";
+import Navbar from "@/Components/Navbar";
+import SetUserWrapper from "@/Components/SetUserWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +18,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <SolanaWalletProvider>
-          <UserInfoProvider>
-            {children}
-          </UserInfoProvider>
+          <UserProvider>
+            <SetUserWrapper>
+            <Navbar />
+            <div className="min-h-screen pt-16">
+              {children}
+            </div>
+            </SetUserWrapper>
+          </UserProvider>
         </SolanaWalletProvider>
       </body>
     </html>
