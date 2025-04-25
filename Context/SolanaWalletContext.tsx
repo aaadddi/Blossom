@@ -21,7 +21,6 @@ const WalletStateManager = ({ children }: { children: React.ReactNode }) => {
   const { wallet, disconnect, connected } = useWallet();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-
   useEffect(() => {
     const updateWalletInfo = async () => {
       if (wallet?.adapter?.publicKey) {

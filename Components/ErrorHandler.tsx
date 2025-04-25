@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface ErrorNotification {
-  id: number;
-  message: string;
-}
-
+import { ErrorNotification } from '@/types';
 const ErrorHandler: React.FC = () => {
   const [notifications, setNotifications] = useState<ErrorNotification[]>([]);
 

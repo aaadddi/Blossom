@@ -4,29 +4,7 @@ import { useSolanaWallet } from '@/Context/SolanaWalletContext';
 import Navbar from '@/Components/Navbar';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-interface Proposal {
-  id: string;
-  hex_id: string;
-  title: string;
-  description: string;
-  amount_requested: number;
-  amount_received: number;
-  fully_funded: boolean;
-  category: string;
-  image_url: string;
-  tags: string[];
-  creator: {
-    username: string;
-    bio: string;
-    social_handles: {
-      twitter?: string;
-      github?: string;
-      website?: string;
-    };
-    previous_fundings: number;
-  };
-}
+import { Proposal } from '@/types';
 
 export default function ProposalDetail() {
   const { id } = useParams();
@@ -36,8 +14,6 @@ export default function ProposalDetail() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // TODO: Fetch proposal data from backend using the id
-    // This is a mock implementation
     setProposal({
       id: '1',
       hex_id: id as string,
