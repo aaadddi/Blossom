@@ -1,6 +1,6 @@
 export type FormData = {
     basicInfo: {
-      projectTitle: string;
+      proposalTitle: string;
       shortDescription: string;
       category: string;
     };
@@ -9,27 +9,16 @@ export type FormData = {
       fundingDeadline: string;
       walletAddress: string;
     };
-    projectInfo: {
+    proposalInfo: {
       detailedDescription: string;
       problemStatement: string;
       fundUsage: string;
-    };
-    socialValidation: {
-      githubLink: string;
-      twitterProfile: string;
-      portfolioWebsite: string;
-      linkedIn: string;
-      discordTelegram: string;
-      otherLinks: string;
+      tags: string[];
+      coverImageUrl: string;
     };
     supportingDocs: {
       googleDriveLink: string;
       demoLink: string;
-    };
-    creatorInfo: {
-      creatorName: string;
-      briefBio: string;
-      contactEmail: string;
     };
     agreements: {
       communityGuidelines: boolean;
@@ -51,36 +40,25 @@ export type FormData = {
   
   export const INITIAL_FORM_DATA: FormData = {
     basicInfo: {
-      projectTitle: '',
+      proposalTitle: '',
       shortDescription: '',
       category: '',
     },
     fundingDetails: {
       fundingGoal: '',
       fundingDeadline: '',
-      walletAddress: '8xHy9tT3JAaFuaGDQXwFzxEjN4UArmwpB3iGqJXZnuZx', // Example wallet address
+      walletAddress: '', 
     },
-    projectInfo: {
+    proposalInfo: {
       detailedDescription: '',
       problemStatement: '',
       fundUsage: '',
-    },
-    socialValidation: {
-      githubLink: '',
-      twitterProfile: '',
-      portfolioWebsite: '',
-      linkedIn: '',
-      discordTelegram: '',
-      otherLinks: '',
+      coverImageUrl: '',
+      tags: [],
     },
     supportingDocs: {
       googleDriveLink: '',
       demoLink: '',
-    },
-    creatorInfo: {
-      creatorName: '',
-      briefBio: '',
-      contactEmail: '',
     },
     agreements: {
       communityGuidelines: false,
@@ -106,21 +84,11 @@ export type FormData = {
     },
     {
       id: 4,
-      title: 'Social Validation',
-      description: 'Share your online presence to build credibility',
-    },
-    {
-      id: 5,
       title: 'Supporting Documentation',
       description: 'Add links to any supporting documents or demos',
     },
     {
-      id: 6,
-      title: 'Creator Information',
-      description: 'Tell us about yourself',
-    },
-    {
-      id: 7,
+      id: 5,
       title: 'Agreements',
       description: 'Review and agree to our terms',
     },

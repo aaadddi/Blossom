@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { FormData, FormErrors, INITIAL_FORM_DATA, FORM_STEPS } from '@/types/form';
 import ProgressBar from '@/Components/ui/ProgressBar';
 import { Button } from '@/Components/ui/button';
-import BasicInfoStep from '@/Components/form/BasicInfoStep';
-import FundingDetailsStep from '@/Components/form/FundingDetailsStep';
-import ProjectInfoStep from '@/Components/form/ProjectInfoStep';
-import SocialValidationStep from '@/Components/form/SocailValidationStep';
-import SupportingDocsStep from '@/Components/form/SupportingDocsStep';
-import CreatorInfoStep from '@/Components/form/CreatorInfoStep';
-import AgreementsStep from '@/Components/form/AgreementSteps';
+import BasicInfoStep from '@/Components/new-proposal-form/BasicInfoStep';
+import FundingDetailsStep from '@/Components/new-proposal-form/FundingDetailsStep';
+import ProposalInfoStep from '@/Components/new-proposal-form/ProposalInfoStep';
+import SupportingDocsStep from '@/Components/new-proposal-form/SupportingDocsStep';
+import AgreementsStep from '@/Components/new-proposal-form/AgreementSteps';
 import ProposalPreview from '@/Components/ProposalFormPreview';
+import { useUser } from '@/Context/UserContext';
+import { submitProposal } from '@/supabase/Calls';
 
 const FundMyWorkForm: React.FC = () => {
+  const { user } = useUser();
+  INITIAL_FORM_DATA.fundingDetails.walletAddress = user?.walletAddress || '';
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [formErrors, setFormErrors] = useState<FormErrors>({} as FormErrors);
@@ -47,8 +50,8 @@ const FundMyWorkForm: React.FC = () => {
     let error = '';
     const value = formData[section][field as keyof typeof formData[typeof section]];
     
-    if (field === 'projectTitle' && !value) {
-      error = 'Project title is required';
+    if (field === 'proposalTitle' && !value) {
+      error = 'Proposal title is required';
     } else if (field === 'shortDescription' && !value) {
       error = 'Short description is required';
     } else if (field === 'category' && !value) {
@@ -98,7 +101,7 @@ const FundMyWorkForm: React.FC = () => {
     
     switch (currentStep) {
       case 1: // Basic Information
-        isValid = validateField('basicInfo', 'projectTitle') && 
+        isValid = validateField('basicInfo', 'proposalTitle') && 
                  validateField('basicInfo', 'shortDescription') && 
                  validateField('basicInfo', 'category');
         break;
@@ -106,30 +109,16 @@ const FundMyWorkForm: React.FC = () => {
         isValid = validateField('fundingDetails', 'fundingGoal');
         break;
       case 3: // Project Information
-        isValid = validateField('projectInfo', 'detailedDescription') && 
-                 validateField('projectInfo', 'problemStatement') && 
-                 validateField('projectInfo', 'fundUsage');
+        isValid = validateField('proposalInfo', 'detailedDescription') && 
+                 validateField('proposalInfo', 'problemStatement') && 
+                 validateField('proposalInfo', 'fundUsage');
         break;
-      case 4: // Social Validation
-        // All fields are optional, but validate URL format if provided
-        isValid = validateField('socialValidation', 'githubLink') && 
-                 validateField('socialValidation', 'twitterProfile') && 
-                 validateField('socialValidation', 'portfolioWebsite') && 
-                 validateField('socialValidation', 'linkedIn') && 
-                 validateField('socialValidation', 'discordTelegram') && 
-                 validateField('socialValidation', 'otherLinks');
-        break;
-      case 5: // Supporting Documentation
+      case 4: // Supporting Documentation
         // All fields are optional, but validate URL format if provided
         isValid = validateField('supportingDocs', 'googleDriveLink') && 
                  validateField('supportingDocs', 'demoLink');
         break;
-      case 6: // Creator Information
-        isValid = validateField('creatorInfo', 'creatorName') && 
-                 validateField('creatorInfo', 'briefBio') && 
-                 validateField('creatorInfo', 'contactEmail');
-        break;
-      case 7: // Agreements
+      case 5: // Agreements
         isValid = validateField('agreements', 'communityGuidelines') && 
                  validateField('agreements', 'projectUpdates');
         break;
@@ -171,26 +160,14 @@ const FundMyWorkForm: React.FC = () => {
     allValid = validateField('fundingDetails', 'fundingGoal') && allValid;
     
     // Project Info
-    allValid = validateField('projectInfo', 'detailedDescription') && 
-              validateField('projectInfo', 'problemStatement') && 
-              validateField('projectInfo', 'fundUsage') && allValid;
+    allValid = validateField('proposalInfo', 'detailedDescription') && 
+              validateField('proposalInfo', 'problemStatement') && 
+              validateField('proposalInfo', 'fundUsage') && allValid;
     
-    // Creator Info
-    allValid = validateField('creatorInfo', 'creatorName') && 
-              validateField('creatorInfo', 'briefBio') && 
-              validateField('creatorInfo', 'contactEmail') && allValid;
     
     // Agreements
     allValid = validateField('agreements', 'communityGuidelines') && 
               validateField('agreements', 'projectUpdates') && allValid;
-    
-    // Social links and supporting docs - only validate format if provided
-    allValid = validateField('socialValidation', 'githubLink') && 
-              validateField('socialValidation', 'twitterProfile') && 
-              validateField('socialValidation', 'portfolioWebsite') && 
-              validateField('socialValidation', 'linkedIn') && 
-              validateField('socialValidation', 'discordTelegram') && 
-              validateField('socialValidation', 'otherLinks') && allValid;
     
     allValid = validateField('supportingDocs', 'googleDriveLink') && 
               validateField('supportingDocs', 'demoLink') && allValid;
@@ -209,11 +186,9 @@ const FundMyWorkForm: React.FC = () => {
         const sectionToStepMap: Record<keyof FormData, number> = {
           basicInfo: 1,
           fundingDetails: 2,
-          projectInfo: 3,
-          socialValidation: 4,
-          supportingDocs: 5,
-          creatorInfo: 6,
-          agreements: 7
+          proposalInfo: 3,
+          supportingDocs: 4,
+          agreements: 5
         };
         
         setCurrentStep(sectionToStepMap[firstErrorSection]);
@@ -240,30 +215,32 @@ const FundMyWorkForm: React.FC = () => {
   const handleSubmit = () => {
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      // Clear the draft from localStorage after successful submission
-      localStorage.removeItem('fundMyWorkFormDraft');
-      
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setShowPreview(false);
-    }, 2000);
+    const Submit = async () => {
+      try {
+        const response = await submitProposal(formData);  
+        console.log(response);
+        setIsSubmitted(true);
+        setShowPreview(false);
+      } catch (error) {
+        console.error('Error submitting proposal:', error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+    Submit();
   };
   
   const checkAllFieldsValid = () => {
     // Check if all required fields are filled
     return (
-      formData.basicInfo.projectTitle && 
+      formData.basicInfo.proposalTitle && 
       formData.basicInfo.shortDescription && 
       formData.basicInfo.category && 
       formData.fundingDetails.fundingGoal && 
-      formData.projectInfo.detailedDescription && 
-      formData.projectInfo.problemStatement && 
-      formData.projectInfo.fundUsage && 
-      formData.creatorInfo.creatorName && 
-      formData.creatorInfo.briefBio && 
-      formData.creatorInfo.contactEmail && 
+      formData.proposalInfo.detailedDescription && 
+      formData.proposalInfo.problemStatement && 
+      formData.proposalInfo.fundUsage && 
       formData.agreements.communityGuidelines && 
       formData.agreements.projectUpdates
     );
@@ -292,7 +269,7 @@ const FundMyWorkForm: React.FC = () => {
         );
       case 3:
         return (
-          <ProjectInfoStep
+          <ProposalInfoStep
             formData={formData}
             formErrors={formErrors}
             updateFormData={updateFormData}
@@ -301,15 +278,6 @@ const FundMyWorkForm: React.FC = () => {
         );
       case 4:
         return (
-          <SocialValidationStep
-            formData={formData}
-            formErrors={formErrors}
-            updateFormData={updateFormData}
-            validateField={validateField}
-          />
-        );
-      case 5:
-        return (
           <SupportingDocsStep
             formData={formData}
             formErrors={formErrors}
@@ -317,16 +285,7 @@ const FundMyWorkForm: React.FC = () => {
             validateField={validateField}
           />
         );
-      case 6:
-        return (
-          <CreatorInfoStep
-            formData={formData}
-            formErrors={formErrors}
-            updateFormData={updateFormData}
-            validateField={validateField}
-          />
-        );
-      case 7:
+      case 5:
         return (
           <AgreementsStep
             formData={formData}
