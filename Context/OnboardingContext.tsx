@@ -34,6 +34,7 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({
     joinedDate: new Date().toISOString(),
     totalFundingReceived: 0,
     proposalsCreated: 0,
+    location: 'New York, NY',
   });
 
   function generateDefaultUsername(address: string): string {

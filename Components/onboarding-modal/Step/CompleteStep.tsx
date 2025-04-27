@@ -36,7 +36,7 @@ export const CompleteStep: React.FC = () => {
       </div>
       
       <h2 className="text-2xl font-bold text-[#333333] mb-3">
-        You're all set!
+        You&aposre all set!
       </h2>
       
       <p className="text-[#6B7280] mb-8 max-w-md mx-auto">

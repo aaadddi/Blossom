@@ -24,7 +24,7 @@ const AgreementsStep: React.FC<AgreementsStepProps> = ({
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1 flex-shrink-0 mt-0.5 text-indigo-600">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Be honest and transparent about your project's goals and funding needs
+            Be honest and transparent about your project&apos goals and funding needs
           </li>
           <li className="flex items-start">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1 flex-shrink-0 mt-0.5 text-indigo-600">

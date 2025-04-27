@@ -10,6 +10,7 @@ import {
 } from '@/lib/utils';
 import { Clock, User } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProposalListProps {
   proposals: Proposal[];
@@ -43,7 +44,7 @@ const ProposalList: React.FC<ProposalListProps> = ({ proposals }) => {
                     <div className="flex items-center">
                       <div className="h-10 w-10 flex-shrink-0 rounded overflow-hidden bg-gray-100 mr-3 hidden sm:block">
                         {proposal.proposalDetails.coverImageUrl ? (
-                          <img src={proposal.proposalDetails.coverImageUrl} alt="" className="h-full w-full object-cover" />
+                          <Image src={proposal.proposalDetails.coverImageUrl} alt="" className="h-full w-full object-cover" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-purple-100 via-blue-50 to-indigo-100"></div>
                         )}

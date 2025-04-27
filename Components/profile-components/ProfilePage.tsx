@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import { User, Proposal, ProfilePageProps } from '@/types';
 import ProfileHeader from './ProfileHeader';
 import AboutSection from './AboutSection';
@@ -13,6 +14,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
   const [currentUser, setCurrentUser] = useState<User>(user);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProposals, setCurrentProposals] = useState<Proposal[]>(proposals);
+
+  useEffect(() => {
+    setCurrentProposals(proposals)
+  }, [proposals])
 
   const handleEditProfile = () => {
     setIsEditing(true);

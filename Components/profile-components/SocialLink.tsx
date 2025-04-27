@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Github, Twitter, Linkedin, Globe, MessageSquare } from 'lucide-react';
-import { User, SocialLinksProps } from '@/types';
+import { SocialLinksProps } from '@/types';
 
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ user, isEditing, onSave, onCancel }) => {

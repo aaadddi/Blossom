@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowUpRight, Menu, Sprout } from "lucide-react"
+import { Menu, Sprout } from "lucide-react"
 import { useUser } from "@/Context/UserContext"
 import { useSolanaWallet } from "@/Context/SolanaWalletContext"
 import dynamic from 'next/dynamic'
@@ -20,7 +20,7 @@ const WalletMultiButton = dynamic(
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { isConnected, publicKey } = useSolanaWallet()
+  const { isConnected } = useSolanaWallet()
   const { user } = useUser()
 
   useEffect(() => {

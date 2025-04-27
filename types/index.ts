@@ -1,5 +1,4 @@
 import { FormData, FormErrors } from '@/types/newProposalForm';
-import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
 
 export type ViewMode = 'card' | 'list';
 
@@ -67,6 +66,7 @@ export interface User {
     website: string;
     discord: string;
   };
+  location: string;
 }
 export interface ErrorNotification {
   id: number;
@@ -81,12 +81,12 @@ export interface ProposalPreviewProps {
 export interface Contributor {
   contributorWalletAddress: string;
   amount: number;
-  timestamp: Timestamp;
+  timestamp: Date;
   metadata: JSON;
 }
 export interface FundingDetails {
   fundingGoal: number;
-  fundingDeadline: Timestamp;
+  fundingDeadline: Date;
   fullyFunded: boolean;
   fundingReceived: number;
   isExpired: boolean;
@@ -98,7 +98,7 @@ export interface ProposalDetails {
   proposalTitle: string;
   coverImageUrl: string;
   category: string;
-  createdAt: Timestamp;
+  createdAt: Date;
   tags: string[];
   demoLink: string;
   driveLink: string;

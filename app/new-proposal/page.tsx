@@ -20,7 +20,7 @@ const FundMyWorkForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [formErrors, setFormErrors] = useState<FormErrors>({} as FormErrors);
   const [showPreview, setShowPreview] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   // Load any saved draft from localStorage
@@ -36,7 +36,7 @@ const FundMyWorkForm: React.FC = () => {
     }
   }, []);
   
-  const updateFormData = (section: keyof FormData, field: string, value: any) => {
+  const updateFormData = (section: keyof FormData, field: string, value: string | number) => {
     setFormData((prevData) => ({
       ...prevData,
       [section]: {
@@ -213,7 +213,7 @@ const FundMyWorkForm: React.FC = () => {
   };
   
   const handleSubmit = () => {
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     
     const Submit = async () => {
       try {
@@ -224,7 +224,8 @@ const FundMyWorkForm: React.FC = () => {
       } catch (error) {
         console.error('Error submitting proposal:', error);
       } finally {
-        setIsSubmitting(false);
+        console.log("submit")
+        // setIsSubmitting(false);
       }
     };
 
@@ -312,7 +313,7 @@ const FundMyWorkForm: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Proposal Submitted Successfully!</h2>
           <p className="text-gray-600 mb-8">
             Thank you for submitting your funding proposal. Our team will review it shortly.
-            You'll receive a confirmation email with next steps.
+            You&aposll receive a confirmation email with next steps.
           </p>
           <div className="flex justify-center space-x-4">
             <Button

@@ -9,7 +9,7 @@ const ErrorHandler: React.FC = () => {
     const originalConsoleError = console.error;
 
     // Override console.error
-    console.error = (...args: any[]) => {
+    console.error = (...args: string[]) => {
       // Call the original console.error
       originalConsoleError.apply(console, args);
 
