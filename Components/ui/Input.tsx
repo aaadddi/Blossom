@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
   label: string;
   error?: string;
   helperText?: string;
@@ -8,6 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   counter?: number;
   maxLength?: number;
   icon?: React.ReactNode;
+  value?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<InputProps> = ({
   maxLength,
   icon,
   id,
+  value = '',
   ...props
 }) => {
   const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
@@ -40,10 +42,11 @@ const Input: React.FC<InputProps> = ({
         <input
           id={inputId}
           className={`
-            w-full rounded-lg border p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500
+            w-full rounded-lg border p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#9945FF]
             ${icon ? 'pl-10' : ''}
             ${error ? 'border-red-500 bg-red-50' : 'border-gray-300'}
           `}
+          value={value}
           {...props}
           maxLength={maxLength}
         />

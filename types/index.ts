@@ -1,4 +1,11 @@
-import { FormData, FormErrors } from '@/types/form';
+import { FormData, FormErrors } from '@/types/newProposalForm';
+import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
+
+export type ViewMode = 'card' | 'list';
+
+export type SortOption = 'newest' | 'fundingGoal' | 'deadline';
+
+export type CategoryFilter = 'All' | 'Development' | 'Art' | 'Content' | 'Research' | 'Community';
 
 export interface ProfileHeaderProps {
   user: User;
@@ -71,28 +78,38 @@ export interface ProposalPreviewProps {
   onClose: () => void;
   onConfirmSubmit: () => void;
 }
-
+export interface Contributor {
+  contributorWalletAddress: string;
+  amount: number;
+  timestamp: Timestamp;
+  metadata: JSON;
+}
+export interface FundingDetails {
+  fundingGoal: number;
+  fundingDeadline: Timestamp;
+  fullyFunded: boolean;
+  fundingReceived: number;
+  isExpired: boolean;
+}
+export interface ProposalDetails {
+  shortDescription: string;
+  detailedDescription: string;
+  problemStatement: string;
+  proposalTitle: string;
+  coverImageUrl: string;
+  category: string;
+  createdAt: Timestamp;
+  tags: string[];
+  demoLink: string;
+  driveLink: string;
+  fundUsage: string;
+}
 export interface Proposal {
   id: string;
-  title: string;
-  description: string;
-  amountRequested: number;
-  amountReceived: number;
-  fullyFunded: boolean;
-  category: string;
-  imageUrl: string;
-  tags: string[];
-  createdAt: string;
-  creator: {
-    username: string;
-    bio: string;
-    social_handles: {
-      twitter?: string;
-      github?: string;
-      website?: string;
-    };
-    previousFundings: number;
-  };
+  walletAddress: string;
+  fundingDetails: FundingDetails;
+  proposalDetails: ProposalDetails;
+  contributors: Contributor[];
 }
 
 export interface UsernameModalProps {
@@ -171,4 +188,3 @@ export interface SocialLinksProps {
   onSave: (updatedUser: Partial<User>) => void;
   onCancel: () => void;
 }
-

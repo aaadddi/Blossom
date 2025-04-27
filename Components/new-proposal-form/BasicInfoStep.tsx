@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import FormSection from '../ui/FormSection';
-import { FormData, FormErrors } from '@/types/form';
+import { FormData, FormErrors } from '@/types/newProposalForm';
 import { BasicInfoStepProps } from '@/types';
 
 const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
@@ -32,12 +32,12 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       description="Let people know the essentials about your project"
     >
       <Input
-        label="Project Title"
-        placeholder="Enter your project title"
-        value={formData.basicInfo.projectTitle}
-        onChange={(e) => updateFormData('basicInfo', 'projectTitle', e.target.value)}
-        onBlur={() => validateField('basicInfo', 'projectTitle')}
-        error={formErrors.basicInfo?.projectTitle}
+        label="Proposal Title"
+        placeholder="Enter your proposal title"
+        value={formData.basicInfo.proposalTitle}
+        onChange={(e) => updateFormData('basicInfo', 'proposalTitle', e.target.value)}
+        onBlur={() => validateField('basicInfo', 'proposalTitle')}
+        error={formErrors.basicInfo?.proposalTitle}
         required
       />
       

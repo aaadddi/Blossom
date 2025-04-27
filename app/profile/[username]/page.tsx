@@ -5,7 +5,6 @@ import ProfileHeader from '@/Components/profile-components/ProfileHeader';
 import AboutSection from '@/Components/profile-components/AboutSection';
 import SocialLinks from '@/Components/profile-components/SocialLink'; 
 import ProposalsList from '@/Components/profile-components/ProposalList';
-import { mockUser, mockProposals } from '@/lib/utils';
 import { ProfilePageProps } from '@/types';
 import { useParams } from 'next/navigation';
 import { getUserByUsername } from '@/supabase/Calls';
@@ -13,7 +12,7 @@ import { useUser } from '@/Context/UserContext';
 import { useSolanaWallet } from '@/Context/SolanaWalletContext';
 
 //TODO: get user and proposals from database
-const proposals= mockProposals 
+const proposals: Proposal[] = [] 
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
   const {isConnected} = useSolanaWallet();

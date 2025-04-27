@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import TextArea from '../ui/TextArea';
 import FormSection from '../ui/FormSection';
 import { ProjectInfoStepProps } from '@/types';
-const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
+import Input from '../ui/Input';
+import TagInput from '../ui/TagInput';
+
+const ProposalInfoStep: React.FC<ProjectInfoStepProps> = ({
   formData,
   formErrors,
   updateFormData,
@@ -42,7 +45,7 @@ const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
     }
     
     const newValue = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-    updateFormData('projectInfo', 'detailedDescription', newValue);
+    updateFormData('proposalInfo', 'detailedDescription', newValue);
     
     // Set cursor position after update
     setTimeout(() => {
@@ -104,13 +107,38 @@ const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
         </div>
       </div>
       
+      <Input
+        label="Cover Image URL"
+        placeholder="Enter the URL of your proposal's cover image"
+        value={formData.proposalInfo.coverImageUrl}
+        onChange={(e) => {
+          updateFormData('proposalInfo', 'coverImageUrl', e.target.value);
+        }}
+        onBlur={() => validateField('proposalInfo', 'coverImageUrl')}
+        error={formErrors.proposalInfo?.coverImageUrl}
+        helperText="A concise summary of your project"
+        maxLength={150}
+        required
+      />
+
+      <TagInput
+        label="Tags"
+        value={Array.isArray(formData.proposalInfo.tags) ? formData.proposalInfo.tags : []}
+        onChange={(tags) => updateFormData('proposalInfo', 'tags', tags)}
+        onBlur={() => validateField('proposalInfo', 'tags')}
+        error={formErrors.proposalInfo?.tags}
+        helperText="Enter tags for your project"
+        maxLength={150}
+        placeholder="Enter tags separated by commas"
+      />
+
       <TextArea
         label="Detailed Description"
         placeholder="Provide a comprehensive overview of your project"
-        value={formData.projectInfo.detailedDescription}
-        onChange={(e) => updateFormData('projectInfo', 'detailedDescription', e.target.value)}
-        onBlur={() => validateField('projectInfo', 'detailedDescription')}
-        error={formErrors.projectInfo?.detailedDescription}
+        value={formData.proposalInfo.detailedDescription}
+        onChange={(e) => updateFormData('proposalInfo', 'detailedDescription', e.target.value)}
+        onBlur={() => validateField('proposalInfo', 'detailedDescription')}
+        error={formErrors.proposalInfo?.detailedDescription}
         helperText="You can use markdown for formatting"
         required
         rows={6}
@@ -119,10 +147,10 @@ const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
       <TextArea
         label="Problem Statement"
         placeholder="What problem are you solving?"
-        value={formData.projectInfo.problemStatement}
-        onChange={(e) => updateFormData('projectInfo', 'problemStatement', e.target.value)}
-        onBlur={() => validateField('projectInfo', 'problemStatement')}
-        error={formErrors.projectInfo?.problemStatement}
+        value={formData.proposalInfo.problemStatement}
+        onChange={(e) => updateFormData('proposalInfo', 'problemStatement', e.target.value)}
+        onBlur={() => validateField('proposalInfo', 'problemStatement')}
+        error={formErrors.proposalInfo?.problemStatement}
         helperText="Explain the problem your project addresses"
         required
         rows={4}
@@ -131,10 +159,10 @@ const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
       <TextArea
         label="Fund Usage"
         placeholder="How will you use the funds?"
-        value={formData.projectInfo.fundUsage}
-        onChange={(e) => updateFormData('projectInfo', 'fundUsage', e.target.value)}
-        onBlur={() => validateField('projectInfo', 'fundUsage')}
-        error={formErrors.projectInfo?.fundUsage}
+        value={formData.proposalInfo.fundUsage}
+        onChange={(e) => updateFormData('proposalInfo', 'fundUsage', e.target.value)}
+        onBlur={() => validateField('proposalInfo', 'fundUsage')}
+        error={formErrors.proposalInfo?.fundUsage}
         helperText="Provide a breakdown of how the funds will be allocated"
         required
         rows={4}
@@ -143,4 +171,4 @@ const ProjectInfoStep: React.FC<ProjectInfoStepProps> = ({
   );
 };
 
-export default ProjectInfoStep;
+export default ProposalInfoStep;

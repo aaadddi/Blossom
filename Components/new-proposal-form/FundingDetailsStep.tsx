@@ -42,11 +42,11 @@ const FundingDetailsStep: React.FC<FundingDetailsStepProps> = ({
         <h3 className="text-sm font-medium text-gray-700 mb-2">Wallet Address</h3>
         <div className="flex items-center space-x-2">
           <div className="w-full py-2 px-3 bg-gray-100 rounded-lg border border-gray-200 text-gray-700 text-sm overflow-x-auto">
-            {formData.fundingDetails.walletAddress}
+            {formData.fundingDetails.walletAddress.slice(0, 4)}...{formData.fundingDetails.walletAddress.slice(-4)}
           </div>
           <button 
             type="button"
-            className="p-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200"
+            className="p-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200 cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(formData.fundingDetails.walletAddress);
             }}
