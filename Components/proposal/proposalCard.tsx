@@ -9,7 +9,7 @@ import {
 } from '@/lib/utils';
 import { Clock, User } from 'lucide-react';
 import Link from 'next/link';
-
+import Image from 'next/image';
 interface ProposalCardProps {
   proposal: Proposal;
 }
@@ -27,7 +27,7 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal }) => {
         {/* Card Image */}
         <div className="h-40 w-full rounded-t-lg bg-gradient-to-r from-gray-100 to-gray-200 overflow-hidden">
           {proposal.proposalDetails.coverImageUrl ? (
-            <img 
+            <Image 
               src={proposal.proposalDetails.coverImageUrl} 
               alt={proposal.proposalDetails.proposalTitle} 
               className="w-full h-full object-cover"

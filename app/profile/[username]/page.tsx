@@ -5,25 +5,26 @@ import ProfileHeader from '@/Components/profile-components/ProfileHeader';
 import AboutSection from '@/Components/profile-components/AboutSection';
 import SocialLinks from '@/Components/profile-components/SocialLink'; 
 import ProposalsList from '@/Components/profile-components/ProposalList';
-import { ProfilePageProps } from '@/types';
 import { useParams } from 'next/navigation';
 import { getUserByUsername } from '@/supabase/Calls';
 import { useUser } from '@/Context/UserContext';
 import { useSolanaWallet } from '@/Context/SolanaWalletContext';
 
 //TODO: get user and proposals from database
-const proposals: Proposal[] = [] 
+const proposalsfetched: Proposal[] = [] 
 
-const ProfilePage: React.FC<ProfilePageProps> = () => {
+export default function ProfilePage() {
   const {isConnected} = useSolanaWallet();
   const [currentUser, setCurrentUser] = useState<User>();
   const [isEditing, setIsEditing] = useState(false);
-  const [currentProposals, setCurrentProposals] = useState<Proposal[]>(proposals);
+  const [currentProposals, setCurrentProposals] = useState<Proposal[]>([]);
   const { username } = useParams();
   const [isOwner, setIsOwner] = useState(false);
   const {user} = useUser();
 
   useEffect(() => {
+
+    setCurrentProposals(proposalsfetched)
     if(username === user?.username) {
       setCurrentUser(user as User);
       setIsOwner(true);
@@ -41,6 +42,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   };
 
   const handleSaveProfile = (updatedUser: Partial<User>) => {
+    console.log(updatedUser)
     // setCurrentUser(prev => ({ ...prev, ...updatedUser }));
     setIsEditing(false);
   };
@@ -92,5 +94,3 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     </div>
   );
 };
-
-export default ProfilePage;

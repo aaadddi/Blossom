@@ -28,7 +28,7 @@ export const WelcomeStep: React.FC<StepProps> = ({ walletAddress }) => {
       <StepIndicator totalSteps={4} />
       
       <p className="text-[#6B7280] mb-8 max-w-md mx-auto">
-        Let's set up your profile to get started. You'll need to provide a username and display name.
+        Let&aposs set up your profile to get started. You&aposll need to provide a username and display name.
       </p>
       
       <div className="space-y-4">

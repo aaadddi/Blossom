@@ -64,6 +64,7 @@ export const ProfileStep: React.FC = () => {
           setError('This username is already taken');
         }
       } catch (err) {
+        console.error(err)
         setError('Error checking username availability');
       } finally {
         setIsChecking(false);

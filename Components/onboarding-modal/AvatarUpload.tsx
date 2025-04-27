@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Image from 'next/image';
 interface AvatarUploadProps {
   value: string;
   onChange: (value: string) => void;
@@ -33,7 +33,7 @@ export const AvatarUpload: React.FC<AvatarUploadProps> = ({ value, onChange }) =
         >
           {value ? (
             <>
-              <img src={value} alt="Profile" className="w-full h-full object-cover" />
+              <Image src={value} alt="Profile" className="w-full h-full object-cover" />
               {isHovering && (
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white transition-opacity duration-200">
                   <span>Change</span>

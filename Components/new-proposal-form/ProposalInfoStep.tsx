@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TextArea from '../ui/TextArea';
 import FormSection from '../ui/FormSection';
 import { ProjectInfoStepProps } from '@/types';

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
-import { ViewMode, SortOption, CategoryFilter } from '@/types/proposalTypes';
+import { ViewMode, SortOption, CategoryFilter } from '@/types';
 import { LayoutGrid, List, ChevronDown, Search, X } from 'lucide-react';
 
 interface ProposalHeaderProps {

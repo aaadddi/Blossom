@@ -5,7 +5,7 @@ import {
   calculateFundingPercentage, 
   formatTimeRemaining, 
   formatSol,
-  formatWalletAddress
+  // formatWalletAddress
 } from '@/lib/utils';
 import { 
   X, 
@@ -16,7 +16,7 @@ import {
   Tag,
   AlertTriangle
 } from 'lucide-react';
-
+import Image from 'next/image';
 interface ProposalModalProps {
   proposal: Proposal;
   isOpen: boolean;
@@ -85,7 +85,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ proposal, isOpen, onClose
             {/* Cover Image */}
             <div className="h-56 w-full rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 overflow-hidden mb-6">
               {proposal.proposalDetails.coverImageUrl ? (
-                <img 
+                <Image 
                   src={proposal.proposalDetails.coverImageUrl} 
                   alt={proposal.proposalDetails.proposalTitle} 
                   className="w-full h-full object-cover"

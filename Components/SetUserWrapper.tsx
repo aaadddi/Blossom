@@ -45,7 +45,7 @@ export default function SetUserWrapper({ children }: { children: React.ReactNode
       setShowModal(true);
     }
     checkIsOnboarded();
-  },[isConnected, publicKey])
+  },[isConnected, publicKey, updateUser])
 
   return showModal ? <OnboardingModal
         isOpen={showModal}

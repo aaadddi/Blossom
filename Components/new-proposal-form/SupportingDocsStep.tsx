@@ -53,7 +53,7 @@ const SupportingDocsStep: React.FC<SupportingDocsStepProps> = ({
           </svg>
           <h3 className="text-sm font-medium text-gray-700">Upload Previews</h3>
           <p className="mt-1 text-xs text-gray-500">
-            In the future, you'll be able to directly upload images, PDFs, and other files here.
+            In the future, you&aposll be able to directly upload images, PDFs, and other files here.
             <br />
             For now, please use Google Drive links to share your materials.
           </p>

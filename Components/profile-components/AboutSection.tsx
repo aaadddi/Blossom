@@ -6,7 +6,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ user, isEditing, onSave, on
   const [editedUser, setEditedUser] = useState({
     bio: user.bio,
     location: user.location,
-    profession: user.profession,
+    profession: user.professionTitle ,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -86,7 +86,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ user, isEditing, onSave, on
       ) : (
         <div>
           <div className="flex items-center mb-2">
-            <p className="text-[#6B7280] font-medium">{user.profession}</p>
+            <p className="text-[#6B7280] font-medium">{user.professionTitle}</p>
             {user.location && (
               <>
                 <span className="mx-2 text-[#E5E7EB]">•</span>

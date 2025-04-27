@@ -15,16 +15,16 @@ const ProposalsList: React.FC<ProposalsListProps> = ({
     switch (sortOption) {
       case 'newest':
         return [...proposals].sort((a, b) => 
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.proposalDetails.createdAt).getTime() - new Date(a.proposalDetails.createdAt).getTime()
         );
       case 'oldest':
         return [...proposals].sort((a, b) => 
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          new Date(a.proposalDetails.createdAt).getTime() - new Date(b.proposalDetails.createdAt).getTime()
         );
       case 'most-funded':
-        return [...proposals].sort((a, b) => b.amountReceived - a.amountReceived);
+        return [...proposals].sort((a, b) => b.fundingDetails.fundingReceived - a.fundingDetails.fundingReceived);
       case 'least-funded':
-        return [...proposals].sort((a, b) => a.amountReceived - b.amountReceived);
+        return [...proposals].sort((a, b) => a.fundingDetails.fundingReceived - b.fundingDetails.fundingReceived);
       default:
         return proposals;
     }
