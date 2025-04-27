@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import FormSection from '../ui/FormSection';
-import { FormData, FormErrors } from '@/types/form';
+import { FormData, FormErrors } from '@/types/newProposalForm';
 import { BasicInfoStepProps } from '@/types';
 
 const BasicInfoStep: React.FC<BasicInfoStepProps> = ({

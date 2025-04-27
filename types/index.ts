@@ -1,5 +1,11 @@
-import { FormData, FormErrors } from '@/types/form';
+import { FormData, FormErrors } from '@/types/newProposalForm';
 import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
+
+export type ViewMode = 'card' | 'list';
+
+export type SortOption = 'newest' | 'fundingGoal' | 'deadline';
+
+export type CategoryFilter = 'All' | 'Development' | 'Art' | 'Content' | 'Research' | 'Community';
 
 export interface ProfileHeaderProps {
   user: User;
@@ -94,6 +100,9 @@ export interface ProposalDetails {
   category: string;
   createdAt: Timestamp;
   tags: string[];
+  demoLink: string;
+  driveLink: string;
+  fundUsage: string;
 }
 export interface Proposal {
   id: string;
@@ -179,4 +188,3 @@ export interface SocialLinksProps {
   onSave: (updatedUser: Partial<User>) => void;
   onCancel: () => void;
 }
-

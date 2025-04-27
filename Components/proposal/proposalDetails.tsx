@@ -1,25 +1,22 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { mockProposals } from '@/Components/proposal/mockData';
+import Link from 'next/link';
+import { mockProposals } from './mockData';
 import { 
   calculateFundingPercentage, 
   formatTimeRemaining, 
   formatSol
 } from '@/lib/utils';
-
 import { 
   Calendar, 
-  User as UserIcon, 
+  User, 
   ExternalLink, 
   FileText, 
   Tag,
   AlertTriangle,
   ArrowLeft
 } from 'lucide-react';
-import { User } from '@/types';
-import { getUser } from '@/supabase/Calls';
 
 const ProposalDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,17 +27,7 @@ const ProposalDetail: React.FC = () => {
   const [walletAddress] = useState<string>('5tGH...9Uvx'); // Mock connected wallet
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  const [creator, setCreator] = useState<User | null>(null);
-
-  useEffect(() => {
-    const fetchCreator = async () => {
-      if (proposal?.walletAddress) {
-        const creator = await getUser(proposal.walletAddress);
-        setCreator(creator);
-      }
-    };
-    fetchCreator();
-  }, [proposal]);
+  
   if (!proposal) {
     return (
       <div className="text-center py-12">
@@ -73,7 +60,7 @@ const ProposalDetail: React.FC = () => {
   };
   
   return (
-    <div className="bg-white rounded-lg shadow-lg max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="bg-white rounded-lg shadow-lg">
       <div className="p-6">
         <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-800 mb-6">
           <ArrowLeft size={20} className="mr-2" />
@@ -115,12 +102,11 @@ const ProposalDetail: React.FC = () => {
             {/* Creator */}
             <div className="flex items-center mb-8 p-4 bg-gray-50 rounded-lg">
               <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
-                <UserIcon size={24} className="text-gray-500" />
+                <User size={24} className="text-gray-500" />
               </div>
               <div>
-                {/* Fetch creator details from database using the creator wallet address using function getUser from supabse/Calls.ts*/}
-                <div className="font-medium text-lg">{creator?.name}</div>
-                <div className="text-gray-500">{creator?.walletAddress}</div>
+                <div className="font-medium text-lg">{proposal.walletAddress}</div>
+                <div className="text-gray-500">{proposal.walletAddress}</div>
               </div>
             </div>
             

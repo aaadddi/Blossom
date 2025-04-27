@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { FormData, FormErrors, INITIAL_FORM_DATA, FORM_STEPS } from '@/types/form';
+import { FormData, FormErrors, INITIAL_FORM_DATA, FORM_STEPS } from '@/types/newProposalForm';
 import ProgressBar from '@/Components/ui/ProgressBar';
 import { Button } from '@/Components/ui/button';
 import BasicInfoStep from '@/Components/new-proposal-form/BasicInfoStep';
