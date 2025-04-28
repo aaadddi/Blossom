@@ -337,7 +337,7 @@ const FundMyWorkForm: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Fund My Work Proposal</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Blossom Proposal</h1>
         <p className="text-lg text-gray-600">
           Submit your project to request funding from our community of supporters.
         </p>
