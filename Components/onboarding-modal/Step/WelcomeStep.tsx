@@ -13,7 +13,7 @@ export const WelcomeStep: React.FC<StepProps> = ({ walletAddress }) => {
   return (
     <div className="text-center animate-fadeIn">
       <h2 className="text-2xl font-bold text-[#333333] mb-3">
-        Welcome to Fund my work
+        Welcome to Blossom
       </h2>
       
       <p className="text-[#6B7280] mb-6">

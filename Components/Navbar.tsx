@@ -36,7 +36,7 @@ export default function Navbar() {
             <Sprout className="h-5 w-5" />
           </div>
           <span className="hidden font-bold text-xl sm:inline-block bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Fund my work
+            Blossom
           </span>
         </Link>
 
